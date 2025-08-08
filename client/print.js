@@ -24,6 +24,31 @@ function __printApiPdf__(urlApi) {
     .catch(error => console.error('Error fetching PDF:', error));
 }
 
+function __printApiJasperPdf__(urlApi) {
+  const username = 'jasperadmin';
+  const password = 'jasperadmin';
+  const reportPath = '/reports/interactive/CustomersReport';
+
+  const headers = new Headers();
+  headers.set('Authorization', 'Basic ' + btoa(`${username}:${password}`));
+  fetch(`http://localhost:81/jasperserver/rest_v2/reports${reportPath}.pdf`, 
+      { 
+        method: 'GET',
+        headers: headers,
+        credentials: 'include',
+        // body: JSON.stringify({
+        //   parameters: {
+        //     // customerId: 12345,
+        //     // region: 'Asia'
+        //   }
+        // })
+      })
+    .then(response => response.blob())
+    .then(blob => __blobToArrayBuffer__(blob))
+    .then(arrayBuffer => __createIframeSourceURL__(arrayBuffer))    
+    .catch(error => console.error('Error fetching PDF:', error));
+}
+
 function __blobToArrayBuffer__(blob) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -55,4 +80,4 @@ function __setPDFSrcInIframe__(url) {
     iframe.src = url;
 }
 
-export  { __printApiPdf__ ,__printPdf__  };
+export  { __printApiPdf__ ,__printPdf__, __printApiJasperPdf__  };

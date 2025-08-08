@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script type="module">
-        import { __printApiPdf__, __printPdf__ } from './print.js';
+        import { __printApiPdf__, __printPdf__, __printApiJasperPdf__ } from './print.js';
         const apiPdfUrl = 'http://localhost/mhhis/server/pdf_api/server/main.php?action=get-pdf';
         const directPdfUrl = 'a.pdf';
 
@@ -16,6 +16,10 @@
         document.getElementById('apiPrintPdfButton').addEventListener('click', () => {
             __printApiPdf__(apiPdfUrl); // Use the API PDF function
         });
+
+        document.getElementById('apiPrintJasperPdfButton').addEventListener('click', () => {
+            __printApiJasperPdf__(apiPdfUrl); // Use the API PDF function
+        });
     </script>
 </head>
 <body>
@@ -25,5 +29,8 @@
     <p>
         <button id="apiPrintPdfButton">Print Report from api </button>
     </p>    
+    <p>
+        <button id="apiPrintJasperPdfButton">Print Report from Jasper api </button>
+    </p>
 </body>
 </html>
